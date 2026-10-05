@@ -1,0 +1,105 @@
+/* ============================================================
+   MAIL CONTROL SYSTEM — DESIGN TOKENS
+   工业编辑风 / Industrial Editorial Design
+   全直角 · 纸与墨为主体 · 黄色仅作信号色
+   ============================================================ */
+
+@theme {
+  /* ---- Surfaces (背景层) ---- */
+  --color-surface-0: #080807;
+  --color-surface-1: #0d0d0b;
+  --color-surface-2: #11110f;
+  --color-surface-3: #171714;
+
+  /* ---- Panels (面板层) ---- */
+  --color-panel-0: #141411;
+  --color-panel-1: #1b1b17;
+  --color-panel-2: #22221d;
+
+  /* ---- Ink (文字层) ---- */
+  --color-ink-0: #f1f0e8;
+  --color-ink-1: #c5c4ba;
+  --color-ink-2: #85857c;
+  --color-ink-3: #5a5a52;
+
+  /* ---- Signal (系统信号色) ---- */
+  --color-signal: #e8ff00;
+  --color-signal-bright: #f1ff19;
+  --color-signal-deep: #d9ea00;
+
+  /* ---- Lines (工程边线) ---- */
+  --color-line: #2a2a24;
+  --color-line-strong: #3d3d33;
+
+  /* ---- Status (状态语义色，克制使用) ---- */
+  --color-danger: #fa294b;
+  --color-ok: #7addb5;
+  --color-warn: #ff8c42;
+  --color-info: #8e959e;
+
+  /* ---- Typography ---- */
+  --font-sans: 'Inter', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', 'Cascadia Code', 'SF Mono', Consolas,
+    'Liberation Mono', monospace;
+
+  /* ---- Radius：全直角强制归零 ---- */
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+}
+
+:root {
+  /* ---- Motion Tokens ---- */
+  --motion-instant: 0ms;
+  --motion-fast: 80ms;
+  --motion-ui: 160ms;
+  --motion-panel: 240ms;
+  --motion-section: 320ms;
+  --motion-boot: 1900ms;
+
+  --ease-industrial: cubic-bezier(0.2, 0, 0, 1);
+  --ease-mechanical: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-linear: linear;
+
+  /* ---- Z-Index Tokens ---- */
+  --z-base: 0;
+  --z-hud: 20;
+  --z-sticky: 40;
+  --z-header: 60;
+  --z-overlay: 80;
+  --z-toast: 90;
+  --z-boot: 100;
+
+  /* ---- Shadow Tokens：只允许低透明度黑投影 ---- */
+  --shadow-panel: 0 1px 0 rgba(0, 0, 0, 0.6), 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-hard: 0 2px 0 rgba(0, 0, 0, 0.8);
+  --shadow-inset: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+  /* ---- Layout Metrics ---- */
+  --header-h: 56px;
+  --statusbar-h: 28px;
+  /* 节点柱需容纳编号牌 + 节点名 + MOCK 徽标 + 地址 + 三格读数，208px 会把区块标题挤到换行 */
+  --rail-w: 248px;
+  /* 索引列需容纳 ID/TIME/PROVIDER/SENDER/SUBJECT/STATUS 六列，420px 会挤到无法阅读 */
+  --index-w: 500px;
+
+  /* ---- Grid ---- */
+  --grid-size: 72px;
+
+  /* ---- Density：由 documentElement[data-density] 覆写 ---- */
+  --density-row-y: 10px;
+  --density-block-y: 16px;
+}
+
+/* 紧凑读数：索引行与详情报文区块同步收紧 */
+[data-density='compact'] {
+  --density-row-y: 5px;
+  --density-block-y: 10px;
+}
+

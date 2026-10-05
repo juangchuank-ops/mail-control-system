@@ -1,0 +1,191 @@
+/* ============================================================
+   GLOBAL BASE — 工业终端基线
+
+   这些重置必须待在 @layer base 里：未分层的裸 CSS 优先级高于所有分层样式，
+   会直接压掉 @layer components 中的 .mcs-btn / .mcs-input，
+   导致按钮被 padding:0 压扁、丢边框、字体被 font:inherit 顶回 14px。
+   ============================================================ */
+
+@layer base {
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface-0);
+  color: var(--color-ink-0);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+}
+
+/* 启动动画期间锁定滚动 */
+body.is-loading {
+  overflow: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---- Selection ---- */
+::selection {
+  background: var(--color-signal);
+  color: var(--color-surface-0);
+}
+
+/* ---- Focus ring：直角、信号色、可见 ---- */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 1px;
+}
+
+/* ---- Scrollbar：轨道透明、滑块边线色、hover 信号色 ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border: 3px solid var(--color-surface-0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-signal);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---- 等宽数字：百分比 / 编号 / 时间不抖动 ---- */
+.mcs-num,
+.mono,
+time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+}
+
+} /* @layer base 结束：以下硬覆盖与 Lenis 基线必须留在层外 */
+
+/* ---- Reduced Motion：立即稳定 ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- 设置项关闭动效：与系统偏好取并集 ---- */
+[data-motion='off'],
+[data-motion='off'] *,
+[data-motion='off'] *::before,
+[data-motion='off'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ---- Lenis 平滑滚动基线 ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
